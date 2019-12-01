@@ -9,14 +9,9 @@
 /*                                              */
 /************************************************/
 with numbers as (
-	select top(40000) number=incr-1
-	from(
-		select  incr = row_number() over (order by object_id, column_id)
-		from(
-			select a.object_id, a.column_id 
-			from sys.all_columns a cross join sys.all_columns b
-		) as a
-	) as b
+	select top(40000) number=row_number() over (order by a.object_id, a.column_id)
+	from sys.all_columns a 
+	cross join sys.all_columns b
 )
 ,t as (
 	select PERNR
