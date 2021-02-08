@@ -64,12 +64,7 @@ select operation = case m.operation
          when 3 then 'update (before)' 
          when 4 then 'update (after)'
          else 'unknown' end,
-       c.id,  
-       c.Pernr,
-       c.FirstName,
-	   c.LastName,
-	   c.DateBirth,
-       m.username,
+       c.id, c.Pernr, c.FirstName, c.LastName, c.DateBirth, m.username,
        m.eventDate
 from cdc.dbo_Employees_CT_Extra m
 inner join cdc.dbo_Employees_CT c with (nolock) on c.__$start_lsn = m.startlsn AND c.__$seqval = m.seqval AND c.__$operation = m.operation
@@ -84,3 +79,13 @@ exec sys.sp_cdc_disable_table @source_schema = 'dbo', @source_name = 'Employees'
 go
 exec sys.sp_cdc_disable_db
 go
+
+---------------------------------------------------------------------------------------------------
+-- LIMITATIONS
+---------------------------------------------------------------------------------------------------
+-- No option to monitor SELECT statement.
+-- Require archiving mechanism (cdc.DB_cleanup job clean after 3 days by default).
+-- Change tables stored under each database, and a function will be created for each tracked table.
+-- Need to add extra table and trigger for username and eventdate (custom) for each tracked table.
+-- Difficult process required to handle DDL changes on CDC enabled table.
+-- If SQL Server Agent service is not running the database log file will grow rapidly.
