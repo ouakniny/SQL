@@ -1,0 +1,150 @@
+select [AgentId], [CallStart], [CallEnd]
+	, WaitBeforeNextCall=datediff(second, CallEnd, lead(CallStart) over (partition by AgentId, convert(date, CallStart) order by CallStart))
+from CallCenter
+
+
+--USE [Sandbox]
+--GO
+--/****** Object:  Table [dbo].[CallCenter]    Script Date: 18/02/2021 17:08:10 ******/
+--SET ANSI_NULLS ON
+--GO
+--SET QUOTED_IDENTIFIER ON
+--GO
+--CREATE TABLE [dbo].[CallCenter](
+--	[AgentId] [int] NULL,
+--	[CallStart] [datetime] NULL,
+--	[CallEnd] [datetime] NULL
+--) ON [PRIMARY]
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T08:45:00.000' AS DateTime), CAST(N'2021-01-01T08:55:02.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T08:57:52.000' AS DateTime), CAST(N'2021-01-01T08:59:54.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T09:06:53.000' AS DateTime), CAST(N'2021-01-01T09:16:14.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T09:20:49.000' AS DateTime), CAST(N'2021-01-01T09:22:41.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T09:31:35.000' AS DateTime), CAST(N'2021-01-01T09:45:27.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T09:48:43.000' AS DateTime), CAST(N'2021-01-01T09:58:55.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T10:07:51.000' AS DateTime), CAST(N'2021-01-01T10:14:24.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T10:23:18.000' AS DateTime), CAST(N'2021-01-01T10:23:51.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T10:25:13.000' AS DateTime), CAST(N'2021-01-01T10:29:14.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T10:36:57.000' AS DateTime), CAST(N'2021-01-01T10:37:55.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-01T10:46:39.000' AS DateTime), CAST(N'2021-01-01T10:51:59.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T08:45:00.000' AS DateTime), CAST(N'2021-01-01T08:49:28.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T09:03:50.000' AS DateTime), CAST(N'2021-01-01T09:11:53.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T09:12:08.000' AS DateTime), CAST(N'2021-01-01T09:25:06.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T09:34:50.000' AS DateTime), CAST(N'2021-01-01T09:38:32.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T09:46:56.000' AS DateTime), CAST(N'2021-01-01T09:53:48.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T09:56:03.000' AS DateTime), CAST(N'2021-01-01T09:59:59.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T10:08:21.000' AS DateTime), CAST(N'2021-01-01T10:09:28.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T10:23:14.000' AS DateTime), CAST(N'2021-01-01T10:34:48.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T10:38:42.000' AS DateTime), CAST(N'2021-01-01T10:44:22.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T10:49:46.000' AS DateTime), CAST(N'2021-01-01T11:01:39.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-01T11:03:49.000' AS DateTime), CAST(N'2021-01-01T11:16:48.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T08:45:00.000' AS DateTime), CAST(N'2021-01-01T08:52:43.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:03:47.000' AS DateTime), CAST(N'2021-01-01T09:04:34.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:08:18.000' AS DateTime), CAST(N'2021-01-01T09:10:19.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:12:49.000' AS DateTime), CAST(N'2021-01-01T09:19:06.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:24:24.000' AS DateTime), CAST(N'2021-01-01T09:25:41.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:29:09.000' AS DateTime), CAST(N'2021-01-01T09:35:39.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:40:08.000' AS DateTime), CAST(N'2021-01-01T09:41:05.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:43:41.000' AS DateTime), CAST(N'2021-01-01T09:48:10.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T09:48:14.000' AS DateTime), CAST(N'2021-01-01T09:48:27.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T10:01:48.000' AS DateTime), CAST(N'2021-01-01T10:06:05.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-01T10:15:22.000' AS DateTime), CAST(N'2021-01-01T10:20:33.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T08:45:00.000' AS DateTime), CAST(N'2021-01-02T08:46:24.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T08:54:32.000' AS DateTime), CAST(N'2021-01-02T08:58:50.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T09:04:41.000' AS DateTime), CAST(N'2021-01-02T09:16:48.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T09:20:48.000' AS DateTime), CAST(N'2021-01-02T09:32:43.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T09:37:46.000' AS DateTime), CAST(N'2021-01-02T09:44:18.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T09:50:32.000' AS DateTime), CAST(N'2021-01-02T10:00:38.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T10:07:11.000' AS DateTime), CAST(N'2021-01-02T10:11:42.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T10:14:17.000' AS DateTime), CAST(N'2021-01-02T10:24:10.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T10:28:47.000' AS DateTime), CAST(N'2021-01-02T10:42:57.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T10:47:53.000' AS DateTime), CAST(N'2021-01-02T10:48:27.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (1, CAST(N'2021-01-02T10:49:36.000' AS DateTime), CAST(N'2021-01-02T10:55:03.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T08:45:00.000' AS DateTime), CAST(N'2021-01-02T08:59:03.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T09:00:30.000' AS DateTime), CAST(N'2021-01-02T09:08:18.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T09:19:21.000' AS DateTime), CAST(N'2021-01-02T09:29:34.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T09:31:15.000' AS DateTime), CAST(N'2021-01-02T09:41:27.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T09:47:37.000' AS DateTime), CAST(N'2021-01-02T09:53:00.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T10:06:20.000' AS DateTime), CAST(N'2021-01-02T10:12:59.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T10:19:48.000' AS DateTime), CAST(N'2021-01-02T10:21:07.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T10:29:24.000' AS DateTime), CAST(N'2021-01-02T10:38:59.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T10:46:41.000' AS DateTime), CAST(N'2021-01-02T10:55:40.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T11:06:58.000' AS DateTime), CAST(N'2021-01-02T11:20:04.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (2, CAST(N'2021-01-02T11:31:06.000' AS DateTime), CAST(N'2021-01-02T11:41:03.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T08:45:00.000' AS DateTime), CAST(N'2021-01-02T08:51:42.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T09:00:04.000' AS DateTime), CAST(N'2021-01-02T09:04:30.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T09:04:33.000' AS DateTime), CAST(N'2021-01-02T09:14:56.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T09:20:43.000' AS DateTime), CAST(N'2021-01-02T09:26:22.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T09:30:51.000' AS DateTime), CAST(N'2021-01-02T09:43:49.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T09:53:36.000' AS DateTime), CAST(N'2021-01-02T10:06:06.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T10:19:30.000' AS DateTime), CAST(N'2021-01-02T10:23:53.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T10:35:55.000' AS DateTime), CAST(N'2021-01-02T10:45:14.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T10:46:21.000' AS DateTime), CAST(N'2021-01-02T10:46:55.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T10:50:50.000' AS DateTime), CAST(N'2021-01-02T10:55:58.000' AS DateTime))
+--GO
+--INSERT [dbo].[CallCenter] ([AgentId], [CallStart], [CallEnd]) VALUES (3, CAST(N'2021-01-02T11:05:43.000' AS DateTime), CAST(N'2021-01-02T11:10:08.000' AS DateTime))
+--GO
