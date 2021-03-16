@@ -23,8 +23,8 @@ as
 		   ,@recipients =   'ylanou@csc.gov.il;marinas@opisoft.com' --#@recipients batelis@csc.gov.il;marinas@opisoft.com
 		   --,@copy_recipients =  'ylanou@csc.gov.il'
 		   --,@blind_copy_recipients = ''
-		   --,@from_address  = 'מוטי אהרוני <motyah@csc.gov.il>'
-		   ,@from_address  = 'תמיכה BI <bihelpdesk@csc.gov.il>'
+		   --,@from_address  = 'מוטי אהרוני <toto@csc.gov.il>'
+		   ,@from_address  = 'תמיכה BI <titi@csc.gov.il>'
 		   ,@subject ='סטטוס הערכות עובדים'
 		   ,@body = @decoded
 		   ,@body_format = 'HTML'
