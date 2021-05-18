@@ -4,33 +4,35 @@
 /*          |-------------|                     */
 /*                              |--------|      */
 /*                                  |--------|  */
-/*												*/
+/*						*/
 /*  |---------------------|     |------------|  */
 /*                                              */
 /************************************************/
-with numbers as (
-	select top(40000) number=row_number() over (order by a.object_id, a.column_id)
-	from sys.all_columns a 
-	cross join sys.all_columns b
+drop table if exists #overlap_date_ranges;
+select * into #overlap_date_ranges
+from openjson(N'[
+	  {"EmployeeId": 100101, "StartDate": "20190425", "EndDate": "20191231"},
+	  {"EmployeeId": 100101, "StartDate": "20191101", "EndDate": "20200629"},
+	  {"EmployeeId": 100101, "StartDate": "20200430", "EndDate": "20200928"},
+	  {"EmployeeId": 100101, "StartDate": "20210205", "EndDate": "20210618"},
+	  {"EmployeeId": 100101, "StartDate": "20210519", "EndDate": "20210821"}
+	]')
+  with (EmployeeId int, StartDate date, EndDate date
+);
+
+select * from #overlap_date_ranges;
+
+with breaks as (
+	select EmployeeId, StartDate, EndDate, breaking=iif(StartDate>dateadd(day,1,lag(EndDate) over (partition by EmployeeId order by StartDate)),1,0)	
+	from #overlap_date_ranges
+),
+cumulative_breaks as (
+	select *, cumul=sum(breaking) over (partition by EmployeeId order by StartDate)
+	from breaks
 )
-,t as (
-	select PERNR
-		,HOLDTYP=iif(TMART='05','A','B')
-		,BEGDA=iif(BVMRK=' ' and AEDTM < MNDAT,AEDTM,MNDAT)
-		,ENDDA=TERMN
-		,TERMN
-	from FlexStage.dbo.HR_439NSM_0019	
-	where TMART in ('05','06') --and not (MNDAT > TERMN and MNDAT < AEDTM)
-)
-select PERNR, HOLDTYP, Min(NEWBEGDA) BEGDA, MAX(ENDDA) ENDDA, MAX(TERMN) TERMN	
-from(
-	select *,
-		NEWBEGDA = dateadd(d,v.number,t.BEGDA),
-		NEWBEGDAGROUP = dateadd(d,1-DENSE_RANK() over (partition by PERNR, HOLDTYP order by dateadd(d,v.number,t.BEGDA)),dateadd(d,v.number,t.BEGDA))
-	from t
-	inner join numbers v on v.number <= DATEDIFF(d, BEGDA, ENDDA)
-) x
-group by PERNR, HOLDTYP, NEWBEGDAGROUP
+select EmployeeId, StartDate=min(StartDate), EndDate=max(EndDate)
+from cumulative_breaks
+group by EmployeeId, cumul
 
 
 
